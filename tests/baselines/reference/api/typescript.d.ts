@@ -5368,7 +5368,13 @@ declare namespace ts {
         ambientModifier = "declare",
         staticModifier = "static",
         abstractModifier = "abstract",
-        optionalModifier = "optional"
+        optionalModifier = "optional",
+        dtsModifier = ".d.ts",
+        tsModifier = ".ts",
+        tsxModifier = ".tsx",
+        jsModifier = ".js",
+        jsxModifier = ".jsx",
+        jsonModifier = ".json"
     }
     enum ClassificationTypeNames {
         comment = "comment",

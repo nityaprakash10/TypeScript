@@ -548,6 +548,7 @@ declare namespace FourSlashInterface {
         readonly hasAction?: boolean,
         readonly isRecommended?: boolean,
         readonly kind?: string,
+        readonly kindModifiers?: string,
 
         // details
         readonly text?: string,

@@ -886,8 +886,8 @@ namespace FourSlash {
         }
 
         private verifyCompletionEntry(actual: ts.CompletionEntry, expected: FourSlashInterface.ExpectedCompletionEntry) {
-            const { insertText, replacementSpan, hasAction, isRecommended, kind, text, documentation, tags, source, sourceDisplay } = typeof expected === "string"
-                ? { insertText: undefined, replacementSpan: undefined, hasAction: undefined, isRecommended: undefined, kind: undefined, text: undefined, documentation: undefined, tags: undefined, source: undefined, sourceDisplay: undefined }
+            const { insertText, replacementSpan, hasAction, isRecommended, kind, kindModifiers, text, documentation, tags, source, sourceDisplay } = typeof expected === "string"
+                ? { insertText: undefined, replacementSpan: undefined, hasAction: undefined, isRecommended: undefined, kind: undefined, kindModifiers: undefined, text: undefined, documentation: undefined, tags: undefined, source: undefined, sourceDisplay: undefined }
                 : expected;
 
             if (actual.insertText !== insertText) {
@@ -901,7 +901,10 @@ namespace FourSlash {
                 this.raiseError(`Expected completion replacementSpan to be ${stringify(convertedReplacementSpan)}, got ${stringify(actual.replacementSpan)}`);
             }
 
-            if (kind !== undefined) assert.equal(actual.kind, kind);
+            if (kind !== undefined || kindModifiers !== undefined) {
+                assert.equal(actual.kind, kind);
+                assert.equal(actual.kindModifiers, kindModifiers || "");
+            }
 
             assert.equal(actual.hasAction, hasAction);
             assert.equal(actual.isRecommended, isRecommended);
@@ -4784,6 +4787,7 @@ namespace FourSlashInterface {
         readonly hasAction?: boolean, // If not specified, will assert that this is false.
         readonly isRecommended?: boolean; // If not specified, will assert that this is false.
         readonly kind?: string, // If not specified, won't assert about this
+        readonly kindModifiers?: string, // Must be paired with 'kind'
         readonly text: string;
         readonly documentation: string;
         readonly sourceDisplay?: string;
